@@ -22,6 +22,7 @@
       discord
       direnv
       nix-direnv
+      bolt-launcher
     ];
   };
 
@@ -44,19 +45,6 @@
   services.printing.enable = true;
 
   services.xserver.videoDrivers = [ "nvidia" ];
-
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true; # needed for Steam/most games via Proton
-  };
-
-  hardware.nvidia = {
-    modesetting.enable = true;
-    powerManagement.enable = false;
-    open = false;
-    nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
-  };
 
   services.xserver.xkb.options = "compose:ralt";
 
