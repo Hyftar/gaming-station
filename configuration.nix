@@ -17,6 +17,8 @@
     description = "Simon Landry";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
+      vscode
+      discord
     ];
   };
 
