@@ -29,6 +29,7 @@
   services.xserver.xkb.options = "compose:ralt";
 
   environment.systemPackages = with pkgs; [
+    firefox
     kdePackages.ark
     kdePackages.spectacle
   ];
