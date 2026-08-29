@@ -33,21 +33,20 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  services.xserver.enable = true;
-
   services.displayManager.sddm = {
     enable = true;
-    wayland.enable = true;
     theme = "breeze-dark";
   };
 
   services.desktopManager.plasma6.enable = true;
   services.printing.enable = true;
 
-  services.xserver.videoDrivers = [ "nvidia" ];
-
-  services.xserver.xkb.options = "compose:ralt";
-
+  services.xserver = {
+    enable = true;
+    videoDrivers = [ "nvidia" ];
+    xkb.options = "compose:ralt";
+  };
+  
   services.openssh.enable = true;
 
   programs.firefox.enable = true;
