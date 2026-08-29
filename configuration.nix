@@ -18,7 +18,10 @@
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       vscode
+      zed-editor
       discord
+      direnv
+      nix-direnv
     ];
   };
 
@@ -60,6 +63,14 @@
   services.openssh.enable = true;
 
   programs.firefox.enable = true;
+
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    extraCompatPackages = with pkgs; [
+      proton-ge-bin
+    ];
+  };
 
   environment.systemPackages = with pkgs; [
     kdePackages.ark
