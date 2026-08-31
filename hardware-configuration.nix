@@ -6,18 +6,16 @@
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    {
-      device = "/dev/disk/by-uuid/6ad346eb-5334-46aa-9cf8-0a0b3d3295a7";
-      fsType = "ext4";
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/6ad346eb-5334-46aa-9cf8-0a0b3d3295a7";
+    fsType = "ext4";
+  };
 
-  swapDevices =
-    [
-      {
-        device = "/dev/disk/by-uuid/bb547cd7-4c91-4836-ba89-33a3f08d27f5";
-      }
-    ];
+  swapDevices = [
+    {
+      device = "/dev/disk/by-uuid/bb547cd7-4c91-4836-ba89-33a3f08d27f5";
+    }
+  ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
@@ -29,7 +27,8 @@
 
   hardware.nvidia = {
     modesetting.enable = true;
-    powerManagement.enable = false;
+    powerManagement.enable = true;
+    powerManagement.finegrained = false;
     open = false;
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.stable;

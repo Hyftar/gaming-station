@@ -9,6 +9,9 @@
   boot.loader.grub.device = "/dev/nvme0n1";
   boot.loader.grub.useOSProber = true;
   boot.kernelPackages = pkgs.linuxPackages_6_12;
+  boot.kernel.sysctl = {
+    "vm.max_map_count" = 2147483642;
+  };
 
   networking.hostName = "kalista";
 
@@ -17,11 +20,7 @@
     description = "Simon Landry";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-      vscode
-      zed-editor
       discord
-      direnv
-      nix-direnv
       bolt-launcher
     ];
   };
@@ -35,6 +34,8 @@
 
   services.displayManager.sddm = {
     enable = true;
+    wayland.enable = true;
+    wayland.compositor = "kwin";
     theme = "breeze-dark";
   };
 
@@ -46,16 +47,29 @@
     videoDrivers = [ "nvidia" ];
     xkb.options = "compose:ralt";
   };
-  
+
   services.openssh.enable = true;
 
   programs.firefox.enable = true;
+  programs.gamemode.enable = true;
 
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
     extraCompatPackages = with pkgs; [
       proton-ge-bin
+    ];
+  };
+
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      stdenv.cc.cc.lib
+      zlib
+      openssl
+      curl
+      glib
+      nodejs
     ];
   };
 
@@ -67,6 +81,10 @@
     wget
     curl
     git
+    nix-direnv
+    zed-editor
+    vscode
+    direnv
   ];
 
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
@@ -85,11 +103,6 @@
     noto-fonts-color-emoji
     liberation_ttf
   ];
-
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix). This is useful in case you
-  # accidentally delete configuration.nix.
-  system.copySystemConfiguration = true;
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
