@@ -36,7 +36,7 @@
     enable = true;
     wayland.enable = true;
     wayland.compositor = "kwin";
-    theme = "breeze-dark";
+    theme = "breeze";
   };
 
   services.desktopManager.plasma6.enable = true;
