@@ -105,6 +105,7 @@
     zed-editor
     (runCommand "zed-cli-alias" { } "mkdir -p $out/bin && ln -s ${zed-editor}/bin/zeditor $out/bin/zed")
     vscode
+    tsukimi
   ];
 
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
