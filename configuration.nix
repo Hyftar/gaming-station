@@ -18,7 +18,7 @@
   users.users."hyftar" = {
     isNormalUser = true;
     description = "Simon Landry";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
       discord
       bolt-launcher
@@ -31,6 +31,8 @@
   networking.networkmanager.enable = true;
 
   nixpkgs.config.allowUnfree = true;
+
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   services.displayManager.sddm = {
     enable = true;
@@ -73,6 +75,13 @@
     ];
   };
 
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
+
+  virtualisation.docker.enable = true;
+
   programs.nix-ld = {
     enable = true;
     libraries = with pkgs; [
@@ -93,11 +102,9 @@
     wget
     curl
     git
-    nix-direnv
     zed-editor
     (runCommand "zed-cli-alias" { } "mkdir -p $out/bin && ln -s ${zed-editor}/bin/zeditor $out/bin/zed")
     vscode
-    direnv
   ];
 
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
